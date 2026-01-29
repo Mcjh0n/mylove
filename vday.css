@@ -1,0 +1,222 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+/* --- CARD STYLES --- */
+.valentines_card {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 2500px;
+    z-index: 10;
+}
+
+.front_card, .inside_card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 15px; 
+    box-shadow: 0 20px 40px rgba(166, 6, 87, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Keeps everything centered vertically */
+    text-align: center;
+    padding: 25px; /* Slightly reduced padding to fit video */
+    box-sizing: border-box;
+}
+
+/* --- FRONT CARD SPECIFICS --- */
+.front_card {
+    z-index: 2;
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: #ffffff; 
+    border: 1px solid #ffe6ea;
+}
+
+.front_content {
+    backface-visibility: hidden; 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- GALLERY STYLES --- */
+.photo_gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.gallery_img {
+    width: 85px;  
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery_img:nth-child(1) { transform: rotate(-6deg) translateY(5px); z-index: 1; }
+.gallery_img:nth-child(2) { transform: rotate(0deg) scale(1.05); z-index: 2; }
+.gallery_img:nth-child(3) { transform: rotate(6deg) translateY(5px); z-index: 1; }
+
+/* --- TEXT STYLES --- */
+.front_text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.sub-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ff9fb3;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.hint {
+    font-size: 12px;
+    color: #cccccc;
+    margin-top: 50px;
+    font-weight: 300;
+}
+
+/* --- INSIDE CARD SPECIFICS --- */
+.inside_card {
+    z-index: 1;
+    background: white;
+    box-shadow: inset 2px 0 10px rgba(0,0,0,0.03); 
+}
+
+/* NEW: Clean Video Styles */
+.inside_video {
+    width: 90%; /* Wide but leaves margin */
+    max-height: 220px; /* Prevents tall videos from breaking the layout */
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Smooth corners */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    background: #000; /* Black background while loading */
+}
+
+.inside_text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.inside_text p {
+    font-family: 'Poppins', sans-serif;
+    color: #555;
+    font-size: 13px; /* Slightly smaller to ensure fit with video */
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.audio_container {
+    margin-top: auto;
+    padding-bottom: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+audio {
+    width: 100%;
+    height: 35px;
+    opacity: 0.7; 
+    filter: sepia(20%) saturate(140%);
+}
+
+.valentines_card:hover .front_card {
+    transform: rotateY(-160deg);
+}
+
+@media (max-width: 450px) {
+    .valentines_card { width: 85vw; height: 70vh; }
+    .front_text h3 { font-size: 32px; }
+    .inside_text p { font-size: 12px; line-height: 1.5; }
+    .gallery_img { width: 75px; height: 90px; }
+}
+
+/* --- BACKGROUND ANIMATION --- */
+.area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.circles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    clip-path: path('M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.57 9.427 12 15.809 6.43-6.382 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181');
+    background-color: #ff9fb3;
+}
+
+.circles li:nth-child(1) { left: 25%; width: 40px; height: 40px; animation-delay: 0s; }
+.circles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+.circles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+.circles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+.circles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+.circles li:nth-child(6) { left: 75%; width: 50px; height: 50px; animation-delay: 3s; }
+.circles li:nth-child(7) { left: 35%; width: 50px; height: 50px; animation-delay: 7s; }
+.circles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+.circles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+.circles li:nth-child(10) { left: 85%; width: 50px; height: 50px; animation-delay: 0s; animation-duration: 11s; }
+
+@keyframes animate {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.6; border-radius: 0; }
+    100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+}
